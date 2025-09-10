@@ -37,6 +37,9 @@ Screen height: {SCREEN_HEIGHT}''')
         for u in updatable:
             u.update(dt)
         for a in asteroids:
+            if player.check_collision(a):
+                print("Game over!")
+                return
             if a.check_collision(player):
                 print("Game over!")
                 return

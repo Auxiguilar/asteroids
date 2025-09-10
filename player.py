@@ -18,9 +18,16 @@ class Player(CircleShape):
         c = self.position - (forward * self.radius) + (right * 2)
         return [a, b, c]
     
+    def check_collision(self, circle):
+        triangle = self.triangle()
+        for point in triangle:
+            if pygame.Vector2.distance_to(point, circle.position) <= circle.radius:
+                return True
+
     def draw(self, screen):
         pygame.draw.polygon(screen, "white", self.triangle(), 2)
         pygame.draw.circle(screen, "red", self.position, self.radius, 2)
+        pygame.draw.line(screen, "red", self.position, self.position + (pygame.Vector2(0, 1).rotate(self.rotation) * self.radius * 3), 2)
 
     def rotate(self, dt):
         self.rotation += PLAYER_TURNING_SPEED * dt
